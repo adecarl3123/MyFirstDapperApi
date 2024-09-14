@@ -1,4 +1,5 @@
-﻿using MyFirstDapper.Model;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MyFirstDapper.Model;
 using MyFirstDapper.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,21 +11,28 @@ namespace MyFirstDapper.Services
 {
     public class StudentServices
     {
-        StudentRepository studentRepository;
+        StudentRepository? studentRepository;
         public StudentModel GetStudentById(int id)
         {
-            studentRepository = new StudentRepository();
             return studentRepository.GetbyId(id);
         }
 
         public bool AddStudent(StudentModel student)
-        {
-            studentRepository = new StudentRepository();
-
-
+        { 
             return studentRepository.Add(student);
 
         }
+
+        public bool DeleteStudent(int id)
+        {
+            return studentRepository.Delete(id);
+        }
+
+        public bool UpdateStudent(StudentModel student) 
+        { 
+            return studentRepository.Update( student);
+        }
+
 
     }
 }

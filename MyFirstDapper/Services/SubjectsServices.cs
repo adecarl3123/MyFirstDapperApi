@@ -14,14 +14,24 @@ namespace MyFirstDapper.Services
 
         public SubjectsModel GetSubjectsById(int id)
         {
-            subjectsRepository = new SubjectsRepository();
             return subjectsRepository.GetbyId(id);
         }
         public bool AddSubject(SubjectsModel subject)
         {
-            subjectsRepository = new SubjectsRepository();
             return subjectsRepository.Add(subject);
         }
+
+        public bool UpdateSubject(SubjectsModel subject)
+        {
+
+            return subjectsRepository.Update(subject);
+        }
+
+        public  bool DeleteSubject(int id) 
+        {
+            return subjectsRepository.Delete(id);
+        }
+
     }
-        
+
 }

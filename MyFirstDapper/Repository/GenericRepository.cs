@@ -50,15 +50,44 @@ namespace MyFirstDapper.Repository
             return affectedRow == 1;
         }
 
-        public bool Update(T Entity)
+
+        public bool Update(T Entity /*int id*/)
         {
-            throw new NotImplementedException();
+            string tableName = GetTableName();
+            string setClause = GetSetClause(Entity);  // Generate SET clause for update
+            string query = $"UPDATE {tableName} SET {setClause} WHERE Id = @Id";
+
+            int affectedRow = 0;
+            affectedRow = connection.Execute(query, Entity);
+            return affectedRow == 1;
         }
 
-        public bool Delete(T Entity)
+        // This method generates the SET clause for the UPDATE query
+        private string GetSetClause(T entity)
         {
-            throw new NotImplementedException();
+            var properties = typeof(T).GetProperties()
+                .Where(p => p.Name != "Id"); // Exclude the 'Id' property from being updated
+
+            var setClause = string.Join(", ", properties.Select(p => $"{p.Name} = @{p.Name}"));
+            return setClause;
         }
+
+       
+        public bool Delete(int id)
+        {
+            string tableName = GetTableName();
+            string query = $"DELETE FROM {tableName} WHERE Id = @Id";
+
+            int affectedRow = 0;
+            affectedRow = connection.Execute(query, new { Id = id });
+            return affectedRow == 1;
+        }
+
+
+        //public bool Delete(T Entity)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
         ////// getting the table, column, 
@@ -102,6 +131,9 @@ namespace MyFirstDapper.Repository
             return values;
         }
 
-
+        //public bool Update(T Entity)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

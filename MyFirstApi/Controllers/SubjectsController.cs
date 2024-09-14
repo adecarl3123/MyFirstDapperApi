@@ -10,11 +10,28 @@ namespace MyFirstApi.Controllers
     [ApiController]
     public class SubjectsController : ControllerBase
     {
+
+        SubjectsServices subjectServices;
+
         [HttpPost]
         public bool AddSubject(SubjectsModel subject) 
         { 
-            SubjectsServices subjectsServices = new SubjectsServices();
-            return subjectsServices.AddSubject(subject);
+            
+            return subjectServices.AddSubject(subject);
+        }
+
+        [HttpPut]
+        public bool UpdateSubject(SubjectsModel subject) 
+        { 
+            return subjectServices.UpdateSubject(subject);
+        }
+
+
+        [HttpDelete]
+        public bool DeleteSubject(int id) 
+        {
+            
+            return subjectServices.DeleteSubject(id);
         }
     }
 }

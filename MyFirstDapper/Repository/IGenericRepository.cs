@@ -11,8 +11,9 @@ namespace MyFirstDapper.Repository
         T GetbyId (int id);
         IEnumerable<T> GetAll();
         bool Add (T Entity);
-        bool Update (T Entity);
-        bool Delete (T Entity);
+        bool Update( T Entity);
+        //bool Delete (T Entity);
+        bool Delete(int id);
     }
 
 
